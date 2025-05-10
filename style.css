@@ -1,0 +1,335 @@
+/* Set full height for html and body to enable full-screen sections */
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #111; /* Dark theme background */
+  color: #eee; /* Light text for contrast */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Reset default margin, padding, and box sizing for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Define a CSS variable for viewport height */
+:root {
+  --vh: 100vh;
+}
+
+/* Utility class to make an element take up the full viewport height */
+.full-screen {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Intro section styles */
+.intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+  text-shadow: 1px 1px 4px #000;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+/* Box within intro section for centered text and styling */
+.intro-box {
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #eee;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Horizontal rule styling within intro box */
+.intro hr {
+  width: 60%;
+  margin: 1.5rem auto;
+  border: 0;
+  border-top: 1px solid #aaa;
+  opacity: 0.4;
+}
+
+/* Small source note under the intro text */
+.source-info {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+/* Background image for intro section using pseudo-element */
+.intro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('bgimage/trade.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: darken;
+  background-color: rgba(0, 0, 0, 0.5); /* Blend layer for readability */
+  z-index: -1;
+}
+
+/* Start button styles */
+#start-button {
+  margin-top: 2rem;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00FFAA, #55FFCC); /* Gradient button */
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s;
+}
+
+/* Hover effect for start button */
+#start-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00FFAA;
+}
+
+/* Hide map section by default until activated */
+.map-section {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fullscreen Mapbox container */
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Control panel container */
+.panel {
+  background-color: rgba(20, 20, 20, 0.5);
+  color: #fff;
+  border-radius: 10px;
+  width: 30%;
+  position: absolute;
+  z-index: 10;
+  top: 20px;
+  left: 20px;
+  transition: none;
+}
+
+/* Draggable handle for panel */
+.panel-toggle {
+  cursor: move;
+  background: #333;
+  padding: 10px;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Panel content styling */
+.panel-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Ensure body is shown unless collapsed */
+.panel:not(.collapsed) .panel-body {
+  display: block;
+}
+
+/* Label styling */
+label {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Placeholder text for chart instructions */
+#plot-placeholder {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  text-align: left;
+  max-width: 80%;
+  font-size: 0.9rem;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Ordered list inside plot placeholder */
+#plot-placeholder ol {
+  text-align: left;
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+/* Default styling for chart canvas */
+canvas {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 1rem;
+}
+
+/* Buttons for switching between globe and flat map view */
+#view-style-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  display: flex;
+  gap: 5px;
+}
+
+/* Styles for each view toggle button */
+.view-btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: #eee;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Active and hover effects for view buttons */
+.view-btn:hover,
+.view-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Import/Export button container */
+.flow-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Individual flow toggle buttons */
+.flow-btn {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  margin: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Active export button styling */
+.flow-btn.active[data-flow="X"] {
+  background-color: #00FFAA;
+  color: #000;
+}
+
+/* Active import button styling */
+.flow-btn.active[data-flow="M"] {
+  background-color: #FF55AA;
+  color: #000;
+}
+
+/* Container for commodity icons/buttons */
+.commodity-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Individual commodity button */
+.commodity-btn {
+  background: #333;
+  border: none;
+  color: #eee;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+/* Commodity icon image */
+.commodity-btn img {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.3rem;
+}
+
+/* Highlight active commodity */
+.commodity-btn.active {
+  background: #555;
+}
+
+/* Hover effect for commodity buttons */
+.commodity-btn:hover {
+  background: #444;
+}
+
+/* Year range slider width */
+#year-slider {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container for year slider and labels */
+#year-slider-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+/* Display for currently selected year (above slider) */
+#year-display {
+  position: absolute;
+  top: -24px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Min and max year labels below slider */
+.year-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  margin-top: 6px;
+  color: #aaa;
+}
+
+/* Additional canvas styling for chart (override) */
+canvas {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0;
+  width: 100%;
+  height: 240px;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for proper rendering and touch zooming -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Title of the web page -->
+  <title>USA Trade Visualization</title>
+
+  <!-- Link to external CSS stylesheet -->
+  <link href="style.css" rel="stylesheet"/>
+
+  <!-- Chart.js library for plotting trade data -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Annotation plugin for Chart.js (used for vertical line on selected year) -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+  <!-- Mapbox GL JS library for interactive map rendering -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- =================== Page 1: Introduction =================== -->
+<section class="full-screen intro" id="intro">
+  <div class="intro-box">
+    <!-- Title and introduction text about U.S. trade -->
+    <p>
+      <h1>Visualizing U.S. International Trade (2017–2024)</h1>
+      International trade shapes the economic strength and global influence of the U.S.<br>
+      By exploring how goods flow between the U.S. and other countries, we gain insights into economic dependencies, growth opportunities, and shifts in global dynamics.<br>
+      Use this tool to investigate trade trends by commodity, partner country, and year.
+    </p>
+    
+    <hr />
+
+    <!-- Source information with a link to the data provider -->
+    <p class="source-info">
+      Data source: 
+      <a href="https://comtradeplus.un.org/" target="_blank" style="color: #00FFAA; text-decoration: none;">
+        UN Comtrade
+      </a> – the United Nations International Trade Statistics Database.
+    </p>
+
+    <!-- Button to start and transition to the interactive map view -->
+    <button id="start-button">Start Exploring</button>
+  </div>
+</section>
+
+<!-- =================== Page 2: Map & Control Panel =================== -->
+<section class="full-screen map-section">
+
+  <!-- Container for the interactive Mapbox map -->
+  <div id="map"></div>
+
+  <!-- View toggle buttons (Globe and Map projection) -->
+  <div id="view-style-buttons" title="Toggle View Style">
+    <button id="globe-view" class="view-btn" title="Globe View">🌐</button>
+    <button id="map-view" class="view-btn" title="Map View">🗺️</button>
+  </div>
+
+  <!-- Control panel for flow, commodity, year, and chart -->
+  <div class="panel" id="control-panel">
+
+    <!-- Toggle handle -->
+    <div class="panel-toggle" id="control-toggle" title="Move panel"></div>
+
+    <!-- Main body of the control panel -->
+    <div class="panel-body" id="control-panel-body">
+
+      <!-- Export/Import flow toggle buttons -->
+      <p class="flow-toggle">
+        <button id="export-btn" class="flow-btn active" data-flow="X" title="Show Exports">Export</button>
+        <button id="import-btn" class="flow-btn active" data-flow="M" title="Show Imports">Import</button>
+      </p>
+      
+      <!-- Placeholder for dynamically generated commodity buttons -->
+      <p class="commodity-toggle" id="commodity-buttons"></p>
+
+      <!-- Year slider to select a specific year from 2017 to 2024 -->
+      <label id="year-slider-container">
+        <!-- Displayed selected year -->
+        <div id="year-display">2017</div>
+
+        <!-- Range input for year selection -->
+        <input type="range" id="year-slider" min="2017" max="2024" step="1" value="2017"/>
+
+        <!-- Labels for min and max years -->
+        <div class="year-range-labels">
+          <span>2017</span>
+          <span style="flex: 1;"></span>
+          <span>2024</span>
+        </div>
+      </label>
+      
+      <!-- Section containing usage instructions and chart -->
+      <div>
+        <!-- Instructions for using the map/chart tool -->
+        <div id="plot-placeholder">
+          <p><strong>How to use:</strong></p>
+          <ol>
+            <li>Click to choose a country on the map to see the trend</li>
+            <li>Choose import/export, commodity, and year to change the plots and lines</li>
+          </ol>
+        </div>
+
+        <!-- Canvas element for rendering Chart.js plots -->
+        <canvas id="trade-chart"></canvas>
+      </div>
+
+    </div> <!-- End panel-body -->
+  </div> <!-- End control-panel -->
+
+</section>
+
+<!-- Load main JavaScript functionality -->
+<script src="script.js"></script>
+
+</body>
+</html>

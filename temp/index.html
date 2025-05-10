@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>USA Trade Visualization</title>
+  <link href="style.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Page 1: Introduction -->
+<section class="full-screen intro" id="intro">
+  <h1>Visualizing U.S. International Trade (2017–2024)</h1>
+  <p>
+    International trade shapes the economic strength and global influence of the United States.<br>
+    By exploring how goods flow between the U.S. and other countries, we gain insights into economic dependencies, growth opportunities, and shifts in global dynamics.<br>
+    Use this tool to investigate trade trends by commodity, partner country, and year.
+  </p>
+  <button id="start-button">Start Exploring</button>
+</section>
+
+<!-- Page 2: Map & Controls -->
+<section class="full-screen map-section">
+
+  <div id="map"></div>
+
+  <div id="view-style-buttons" title="Toggle View Style">
+    <button id="globe-view" class="view-btn" title="Globe View">🌐</button>
+    <button id="map-view" class="view-btn" title="Map View">🗺️</button>
+  </div>
+
+  <div class="panel" id="control-panel">
+    <div class="panel-toggle" id="control-toggle" title="Toggle panel">⏷</div>
+    <div class="panel-body" id="control-panel-body">
+
+      <p class="flow-toggle">
+        <button id="import-btn" class="flow-btn active" data-flow="M" title="Show Imports">Import</button>
+        <button id="export-btn" class="flow-btn active" data-flow="X" title="Show Exports">Export</button>
+      </p>
+      
+      <p class="commodity-toggle" id="commodity-buttons"></p>
+
+      <label id="year-slider-container">
+        <div id="year-display">2017</div>
+        <input type="range" id="year-slider" min="2017" max="2024" step="1" value="2017"/>
+        <div class="year-range-labels">
+          <span>2017</span>
+          <span style="flex: 1;"></span>
+          <span>2024</span>
+        </div>
+      </label>
+      
+      <div>
+        <canvas id="trade-chart"></canvas>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
